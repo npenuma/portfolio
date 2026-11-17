@@ -13,9 +13,10 @@ PROFILE = {
     # Phone is kept out of the public code. To show one, fill it in AND set SHOW_PHONE = True.
     "phone": "",
     "taglines": [
-        "Backend services & REST APIs",
-        "HIPAA-aligned healthcare platforms",
+        "AI-powered apps with the Claude API",
         "Full-stack web applications",
+        "Backend services & REST APIs",
+        "HIPAA-aligned healthcare platforms",                
         "AI-assisted development",
         "IoT tinkerer: Raspberry Pi & Arduino",
     ],
