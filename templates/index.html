@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ profile.name }} · {{ profile.title }}</title>
+  <meta name="description" content="{{ profile.name }}, {{ profile.title }}. {{ profile.summary[:150] }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script>
+    try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t;
+          else if (matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.dataset.theme = 'dark'; } catch (e) {}
+  </script>
+</head>
+<body>
+
+<header class="nav">
+  <a href="#top" class="nav-logo">NP</a>
+  <nav class="nav-links">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#highlights">Highlights</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <button class="icon-btn" id="theme-toggle" aria-label="Toggle dark mode">
+    <svg class="sun" viewBox="0 0 24 24" width="20" height="20"><circle cx="12" cy="12" r="4.5" fill="currentColor"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g></svg>
+    <svg class="moon" viewBox="0 0 24 24" width="20" height="20"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="currentColor"/></svg>
+  </button>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Hi, I'm</p>
+      <h1>{{ profile.name }}</h1>
+      <p class="hero-title">{{ profile.title }} <span class="dot">•</span> {{ profile.location }}</p>
+      <p class="typed-line"><span id="typed" data-lines='{{ profile.taglines | tojson }}'></span><span class="caret">|</span></p>
+      <div class="hero-cta">
+        <button class="btn primary" data-open-chat>
+          <svg viewBox="0 0 24 24" width="18" height="18"><path d="M4 4h16v12H8l-4 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+          Ask my AI assistant
+        </button>
+        <a class="btn" href="#projects">See my work</a>
+        <a class="btn ghost" href="{{ profile.linkedin }}" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats reveal">
+    {% for s in stats %}
+    <div class="stat">
+      <div class="stat-num"><span data-count="{{ s.value }}">0</span>{{ s.suffix }}</div>
+      <div class="stat-label">{{ s.label }}</div>
+    </div>
+    {% endfor %}
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="section reveal">
+    <h2>About</h2>
+    <p class="lead">{{ profile.summary }}</p>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="section reveal">
+    <h2>Skills</h2>
+    <p class="hint">Click a skill to see where I've used it. <button class="link-btn" id="clear-skill" hidden>Clear filter ✕</button></p>
+    <div class="skill-groups">
+      {% for cat, items in skills.items() %}
+      <div class="skill-group">
+        <h3>{{ cat }}</h3>
+        <div class="chips">
+          {% for sk in items %}<button class="chip" data-skill="{{ sk }}">{{ sk }}</button>{% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <p class="skill-result" id="skill-result" hidden></p>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="section reveal">
+    <h2>Experience</h2>
+    <ol class="timeline">
+      {% for job in experience %}
+      <li class="job" data-skills="{{ job.skills | join('|') }}">
+        <button class="job-head" aria-expanded="{{ 'true' if loop.index <= 2 else 'false' }}">
+          <span class="job-dot"></span>
+          <span class="job-main">
+            <span class="job-role">{{ job.role }}</span>
+            <span class="job-company">{{ job.company }}</span>
+          </span>
+          <span class="job-dates">{{ job.dates }}</span>
+          <span class="chev" aria-hidden="true">⌄</span>
+        </button>
+        <div class="job-body" {% if loop.index > 2 %}hidden{% endif %}>
+          <ul>{% for pt in job.points %}<li>{{ pt }}</li>{% endfor %}</ul>
+          <div class="tags">{% for sk in job.skills %}<span class="tag">{{ sk }}</span>{% endfor %}</div>
+        </div>
+      </li>
+      {% endfor %}
+    </ol>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="section reveal">
+    <h2>Projects</h2>
+    {% set cats = projects | map(attribute='category') | unique | list %}
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-cat="All">All</button>
+      {% for c in cats %}<button class="tab" data-cat="{{ c }}">{{ c }}</button>{% endfor %}
+    </div>
+    <div class="project-grid">
+      {% for pr in projects %}
+      <article class="card project" data-cat="{{ pr.category }}" data-skills="{{ pr.skills | join('|') }}">
+        <span class="badge badge-{{ pr.category | lower }}">{{ pr.category }}</span>
+        <h3>{{ pr.name }}</h3>
+        <p>{{ pr.blurb }}</p>
+        <div class="tags">{% for sk in pr.skills %}<span class="tag">{{ sk }}</span>{% endfor %}</div>
+        <button class="link-btn ask-about" data-question="Tell me more about the {{ pr.name }} project.">Ask the assistant about this →</button>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- HIGHLIGHTS -->
+  <section id="highlights" class="section reveal">
+    <h2>Highlights</h2>
+    <div class="highlight-grid">
+      {% for section, items in highlights.items() %}
+      <div class="card">
+        <h3>{{ section }}</h3>
+        <ul>{% for it in items %}<li>{{ it }}</li>{% endfor %}</ul>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section contact reveal">
+    <h2>Let's talk</h2>
+    <p class="lead">I'm interested in applying software architecture and AI-enabled solutions to clinical and healthcare domains. Reach out any time.</p>
+    <div class="contact-row">
+      <button class="btn" id="copy-email" data-email="{{ profile.email }}">✉ {{ profile.email }}</button>
+      <a class="btn" href="{{ profile.linkedin }}" target="_blank" rel="noopener">LinkedIn ↗</a>
+      {% if profile.github %}<a class="btn" href="{{ profile.github }}" target="_blank" rel="noopener">GitHub ↗</a>{% endif %}
+      {% if show_phone %}<span class="btn ghost">☎ {{ profile.phone }}</span>{% endif %}
+    </div>
+    <p class="copied" id="copied" hidden>Email copied to clipboard</p>
+  </section>
+</main>
+
+<footer class="footer">© {{ profile.name }} · Built with Python &amp; Flask</footer>
+
+<!-- CHAT WIDGET -->
+<button class="chat-fab" data-open-chat aria-label="Open chat assistant">
+  <svg viewBox="0 0 24 24" width="26" height="26"><path d="M4 4h16v12H8l-4 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="9" cy="10" r="1.2" fill="currentColor"/><circle cx="12" cy="10" r="1.2" fill="currentColor"/><circle cx="15" cy="10" r="1.2" fill="currentColor"/></svg>
+</button>
+
+<aside class="chat" id="chat" hidden aria-label="Chat with Neelima's assistant">
+  <div class="chat-head">
+    <div>
+      <strong>Ask about Neelima</strong>
+      <small>AI assistant · answers from her resume</small>
+    </div>
+    <button class="icon-btn" id="chat-close" aria-label="Close chat">✕</button>
+  </div>
+  <div class="chat-log" id="chat-log" aria-live="polite">
+    <div class="msg bot">Hi! I can answer questions about Neelima's experience, skills, and projects. What would you like to know?</div>
+    <div class="suggestions" id="suggestions">
+      {% for q in suggested %}<button class="suggest">{{ q }}</button>{% endfor %}
+    </div>
+  </div>
+  <form class="chat-form" id="chat-form">
+    <input id="chat-input" type="text" placeholder="Ask a question…" maxlength="1000" autocomplete="off" required>
+    <button type="submit" class="send" aria-label="Send">➤</button>
+  </form>
+</aside>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
