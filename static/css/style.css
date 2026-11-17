@@ -29,6 +29,7 @@
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html { scroll-behavior: smooth; scroll-padding-top: 72px; }
 body {
   margin: 0; background: var(--bg); color: var(--text);
@@ -237,3 +238,34 @@ main { padding: 0 clamp(1rem, 4vw, 3rem); }
 @media (max-width: 480px) {
   .chat { right: .5rem; left: .5rem; width: auto; bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px)); }
 }
+
+/* WRITING / BLOG */
+.post-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1.1rem; }
+.post-card { display: flex; flex-direction: column; color: var(--text); text-decoration: none; }
+.post-card:hover { transform: translateY(-4px); border-color: var(--accent); }
+.post-card h3 { margin-top: .2rem; }
+.post-summary { color: var(--muted); flex: 1; margin: 0; }
+.post-meta { color: var(--muted); font-size: .85rem; margin: 0; }
+.post-more { color: var(--accent); font-weight: 600; font-size: .9rem; margin-top: .9rem; }
+.see-all { margin-top: 1.5rem; }
+.nav-links-always { display: flex !important; }
+.blog-head { padding-bottom: 0; }
+.blog-title { font-size: clamp(2rem, 5vw, 2.8rem); color: var(--accent); }
+.blog-list-section { padding-top: 2rem; padding-bottom: 4rem; }
+.post { max-width: 720px; padding-bottom: 4rem; }
+.post-back { text-decoration: none; font-weight: 600; font-size: .92rem; }
+.post-header { margin: 1.5rem 0 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+.post-header h1 { font-size: clamp(1.8rem, 4.5vw, 2.5rem); }
+.post-body { font-size: 1.06rem; line-height: 1.75; overflow-wrap: anywhere; }
+.post-body h2 { font-size: 1.45rem; margin-top: 2.2rem; }
+.post-body h3 { margin-top: 1.6rem; }
+.post-body li { margin: .35rem 0; }
+.post-body blockquote { margin: 1.5rem 0; padding: .8rem 1.2rem; border-left: 4px solid var(--accent); background: var(--bg-alt); border-radius: 0 10px 10px 0; }
+.post-body blockquote p { margin: .4rem 0; }
+.post-body code { background: var(--bg-alt); padding: .1rem .35rem; border-radius: 5px; font-size: .92em; }
+.post-body pre { background: var(--bg-alt); padding: 1rem; border-radius: 10px; overflow-x: auto; }
+.post-body pre code { background: none; padding: 0; }
+.post-body img { max-width: 100%; border-radius: 10px; }
+.post-body table { border-collapse: collapse; width: 100%; display: block; overflow-x: auto; }
+.post-body th, .post-body td { border: 1px solid var(--border); padding: .5rem .75rem; text-align: left; }
+.post-footer { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }

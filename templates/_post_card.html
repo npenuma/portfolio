@@ -1,0 +1,7 @@
+<a class="card post-card" href="{{ url_for('blog_post', slug=post.slug) }}">
+  <p class="post-meta">{{ post.date_label }} · {{ post.minutes }} min read</p>
+  <h3>{{ post.title }}</h3>
+  {% if post.summary %}<p class="post-summary">{{ post.summary }}</p>{% endif %}
+  {% if post.tags %}<div class="tags">{% for t in post.tags %}<span class="tag">{{ t }}</span>{% endfor %}</div>{% endif %}
+  <span class="post-more">Read post →</span>
+</a>

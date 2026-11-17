@@ -14,8 +14,9 @@ from collections import defaultdict, deque
 
 import anthropic
 from dotenv import load_dotenv
-from flask import Flask, Response, jsonify, render_template, request, stream_with_context
+from flask import Flask, Response, abort, jsonify, render_template, request, stream_with_context
 
+import blog
 import portfolio_data as data
 
 load_dotenv()
@@ -118,7 +119,21 @@ def index():
         projects=data.PROJECTS,
         highlights=data.HIGHLIGHTS,
         suggested=data.SUGGESTED_QUESTIONS,
+        posts=blog.all_posts()[:3],
     )
+
+
+@app.route("/blog")
+def blog_index():
+    return render_template("blog.html", profile=data.PROFILE, posts=blog.all_posts())
+
+
+@app.route("/blog/<slug>")
+def blog_post(slug):
+    post = blog.get_post(slug)
+    if post is None:
+        abort(404)
+    return render_template("post.html", profile=data.PROFILE, post=post)
 
 
 @app.post("/api/chat")
