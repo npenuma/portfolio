@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <style>
+    .hex { fill: #9b2213; }
+    .n { fill: #ffffff; }
+    @media (prefers-color-scheme: dark) {
+      .hex { fill: #ec6b55; }
+      .n { fill: #1a0f0c; }
+    }
+  </style>
+  <polygon class="hex" points="50,3 90.7,26.5 90.7,73.5 50,97 9.3,73.5 9.3,26.5"/>
+  <polygon class="n" points="28,24 40,24 60,51.5 60,24 72,24 72,76 60,76 40,48.5 40,76 28,76"/>
+</svg>

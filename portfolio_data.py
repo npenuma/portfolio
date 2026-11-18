@@ -57,6 +57,7 @@ EXPERIENCE = [
     {
         "role": "Part-Time Technical Lead",
         "company": "Speech Improvement Center",
+        "logo": "img/logos/speech-improvement-center.png",
         "dates": "03/2023 – Present",
         "skills": ["PHP", "MySQL", "React", "Angular", "Git"],
         "points": [
@@ -67,6 +68,7 @@ EXPERIENCE = [
     {
         "role": "Senior Full-Stack Developer",
         "company": "Megagoods Inc",
+        "logo": "img/logos/megagoods.png",
         "dates": "03/2023 – 09/2026",
         "skills": ["Python", "JavaScript", "SQL", "REST APIs", "MySQL", "Git", "GitHub", "Claude Code"],
         "points": [
@@ -85,6 +87,7 @@ EXPERIENCE = [
     {
         "role": "Web Application Developer",
         "company": "Speech Improvement Center",
+        "logo": "img/logos/speech-improvement-center.png",
         "dates": "02/2018 – 02/2023",
         "skills": ["PHP", "MySQL", "React", "Angular", "GraphQL", "JavaScript", "HTML5", "CSS3", "Git"],
         "points": [
@@ -100,6 +103,7 @@ EXPERIENCE = [
     {
         "role": "Software Engineer I",
         "company": "SAP Labs India Pvt Ltd",
+        "logo": "img/logos/sap.png",
         "dates": "06/2014 – 04/2016",
         "skills": ["React", "JavaScript", "Node.js", "PHP", "SAP Fiori", "SAP HANA", "OData",
                    "SAP NetWeaver Gateway", "REST APIs", "Git", "Gerrit", "Perforce"],
@@ -115,6 +119,7 @@ EXPERIENCE = [
     {
         "role": "Intern",
         "company": "Mission R&D",
+        "logo": "img/logos/mission-rnd.png",
         "dates": "03/2013 – 05/2013",
         "skills": ["Python", "React", "Angular", "MySQL"],
         "points": [

@@ -5,9 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ profile.name }} · {{ profile.title }}</title>
   <meta name="description" content="{{ profile.name }}, {{ profile.title }}. {{ profile.summary[:150] }}">
+  <meta property="og:title" content="{{ profile.name }} · {{ profile.title }}">
+  <meta property="og:description" content="{{ profile.summary[:150] }}">
+  <meta property="og:image" content="{{ url_for('static', filename='img/profile.jpg', _external=True) }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml">
+  <link rel="icon" href="{{ url_for('static', filename='favicon-32.png') }}" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <script>
     try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t;
@@ -15,9 +21,23 @@
   </script>
 </head>
 <body>
+<script>
+  try {
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !sessionStorage.getItem('introSeen')) {
+      document.documentElement.classList.add('intro');
+    }
+  } catch (e) {}
+</script>
+<div class="intro-loader" aria-hidden="true">
+  <svg class="intro-mark" viewBox="0 0 100 100" width="110" height="110">
+    <polygon class="intro-hex-fill" points="50,3 90.7,26.5 90.7,73.5 50,97 9.3,73.5 9.3,26.5"/>
+    <polygon class="intro-hex-line" points="50,3 90.7,26.5 90.7,73.5 50,97 9.3,73.5 9.3,26.5" pathLength="100"/>
+    <polygon class="intro-n" points="28,24 40,24 60,51.5 60,24 72,24 72,76 60,76 40,48.5 40,76 28,76"/>
+  </svg>
+</div>
 
 <header class="nav">
-  <a href="#top" class="nav-logo">NP</a>
+  <a href="#top" class="nav-logo" aria-label="{{ profile.name }}, home"><svg class="logo-mark" viewBox="0 0 100 100" width="38" height="38" aria-hidden="true"><polygon class="logo-hex" points="50,3 90.7,26.5 90.7,73.5 50,97 9.3,73.5 9.3,26.5"/><polygon class="logo-n" points="28,24 40,24 60,51.5 60,24 72,24 72,76 60,76 40,48.5 40,76 28,76"/></svg></a>
   <nav class="nav-links">
     <a href="#about">About</a>
     <a href="#skills">Skills</a>
@@ -38,6 +58,9 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-inner">
+      <div class="avatar-wrap" tabindex="0">
+        <img class="avatar" src="{{ url_for('static', filename='img/profile.jpg') }}" alt="Photo of {{ profile.name }}" width="160" height="160">
+      </div>
       <p class="eyebrow">Hi, I'm</p>
       <h1>{{ profile.name }}</h1>
       <p class="hero-title">{{ profile.title }} <span class="dot">•</span> {{ profile.location }}</p>
@@ -95,8 +118,11 @@
         <button class="job-head" aria-expanded="{{ 'true' if loop.index <= 2 else 'false' }}">
           <span class="job-dot"></span>
           <span class="job-main">
-            <span class="job-role">{{ job.role }}</span>
-            <span class="job-company">{{ job.company }}</span>
+            {% if job.logo %}<span class="job-logo"><img src="{{ url_for('static', filename=job.logo) }}" alt="{{ job.company }} logo" width="80" height="40" loading="lazy"></span>{% endif %}
+            <span class="job-text">
+              <span class="job-role">{{ job.role }}</span>
+              <span class="job-company">{{ job.company }}</span>
+            </span>
           </span>
           <span class="job-dates">{{ job.dates }}</span>
           <span class="chev" aria-hidden="true">⌄</span>

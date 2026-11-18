@@ -16,6 +16,7 @@ from collections import defaultdict, deque
 import anthropic
 from dotenv import load_dotenv
 from flask import Flask, Response, abort, jsonify, render_template, request, stream_with_context
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 import blog
 import portfolio_data as data
@@ -23,6 +24,8 @@ import portfolio_data as data
 load_dotenv()
 
 app = Flask(__name__)
+# Behind Render's proxy: trust its scheme/host headers so absolute URLs use https.
+app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 app.logger.setLevel(logging.INFO)  # so visitor questions (logged at INFO) appear in the server log
 
 # ---------------------------------------------------------------------------
@@ -123,6 +126,12 @@ def index():
         suggested=data.SUGGESTED_QUESTIONS,
         posts=blog.all_posts()[:3],
     )
+
+
+@app.route("/favicon.ico")
+def favicon():
+    # Some browsers and crawlers ask for /favicon.ico directly.
+    return app.send_static_file("favicon.ico")
 
 
 @app.route("/blog")

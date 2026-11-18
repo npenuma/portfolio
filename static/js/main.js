@@ -3,6 +3,20 @@
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ---------- Intro logo animation (once per browser session) ---------- */
+  const intro = $('.intro-loader');
+  if (intro && document.documentElement.classList.contains('intro')) {
+    const finish = () => {
+      document.documentElement.classList.remove('intro');
+      intro.remove();
+      try { sessionStorage.setItem('introSeen', '1'); } catch (e) {}
+    };
+    intro.addEventListener('animationend', (e) => { if (e.target === intro) finish(); });
+    setTimeout(() => { if (intro.isConnected) finish(); }, 4000); // safety net
+  } else if (intro) {
+    intro.remove();
+  }
+
   /* ---------- Theme toggle ---------- */
   $('#theme-toggle').addEventListener('click', () => {
     const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';

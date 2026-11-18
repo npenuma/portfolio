@@ -8,6 +8,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml">
+  <link rel="icon" href="{{ url_for('static', filename='favicon-32.png') }}" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <script>
     try { const t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t;
@@ -17,7 +20,7 @@
 <body>
 
 <header class="nav">
-  <a href="{{ url_for('index') }}" class="nav-logo">NP</a>
+  <a href="{{ url_for('index') }}" class="nav-logo" aria-label="{{ profile.name }}, home"><svg class="logo-mark" viewBox="0 0 100 100" width="38" height="38" aria-hidden="true"><polygon class="logo-hex" points="50,3 90.7,26.5 90.7,73.5 50,97 9.3,73.5 9.3,26.5"/><polygon class="logo-n" points="28,24 40,24 60,51.5 60,24 72,24 72,76 60,76 40,48.5 40,76 28,76"/></svg></a>
   <nav class="nav-links nav-links-always">
     <a href="{{ url_for('index') }}">Home</a>
     <a href="{{ url_for('blog_index') }}" class="active">Writing</a>
