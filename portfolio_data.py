@@ -9,7 +9,7 @@ PROFILE = {
     "location": "Valencia, CA",
     "email": "neelima.1.penumarthy@gmail.com",
     "linkedin": "https://www.linkedin.com/in/neelimapenumarthy",
-    "github": "",  # add your GitHub URL here to show it on the site
+    "github": "https://github.com/npenuma",
     # Phone is kept out of the public code. To show one, fill it in AND set SHOW_PHONE = True.
     "phone": "",
     "taglines": [

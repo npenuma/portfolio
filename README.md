@@ -41,7 +41,7 @@ All content (summary, skills, jobs, projects, highlights, and the chatbot's sugg
 
 **Render**: create a new Web Service from your GitHub repo.
 - Build command: `pip install -r requirements.txt`
-- Start command: `gunicorn app:app`
+- Start command: `gunicorn app:app --worker-class gthread --threads 8 --timeout 120` (threads let several visitors chat at once; the longer timeout keeps streamed replies from being cut off)
 - Add the environment variable `ANTHROPIC_API_KEY`.
 
 **PythonAnywhere**: upload the project, create a Flask web app that points at `app.py`, and set `ANTHROPIC_API_KEY` in the WSGI file or a `.env` file.

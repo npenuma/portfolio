@@ -7,6 +7,7 @@ Run locally:
 """
 
 import json
+import logging
 import os
 import threading
 import time
@@ -22,6 +23,7 @@ import portfolio_data as data
 load_dotenv()
 
 app = Flask(__name__)
+app.logger.setLevel(logging.INFO)  # so visitor questions (logged at INFO) appear in the server log
 
 # ---------------------------------------------------------------------------
 # Chatbot configuration
@@ -146,6 +148,11 @@ def chat():
     messages = clean_history(payload.get("messages"))
     if messages is None:
         return jsonify(error=f"Please send a question under {MAX_INPUT_CHARS} characters."), 400
+
+    # Record the visitor's question (no IP or other personal data). Line breaks are
+    # flattened so one question is always one log line.
+    question = " ".join(messages[-1]["content"].split())
+    app.logger.info("CHAT QUESTION: %s", question)
 
     def generate():
         try:
