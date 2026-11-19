@@ -130,6 +130,7 @@
         <div class="job-body" {% if loop.index > 2 %}hidden{% endif %}>
           <ul>{% for pt in job.points %}<li>{{ pt }}</li>{% endfor %}</ul>
           <div class="tags">{% for sk in job.skills %}<span class="tag">{{ sk }}</span>{% endfor %}</div>
+          {% if job.website %}<a class="job-site" href="{{ job.website }}" target="_blank" rel="noopener">Visit {{ job.website | replace('https://', '') | replace('www.', '') }} ↗</a>{% endif %}
         </div>
       </li>
       {% endfor %}

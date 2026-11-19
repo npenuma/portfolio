@@ -57,6 +57,7 @@ EXPERIENCE = [
     {
         "role": "Part-Time Technical Lead",
         "company": "Speech Improvement Center",
+        "website": "https://speechimprovementcenter.com",
         "logo": "img/logos/speech-improvement-center.png",
         "dates": "03/2023 – Present",
         "skills": ["PHP", "MySQL", "React", "Angular", "Git"],
@@ -68,6 +69,7 @@ EXPERIENCE = [
     {
         "role": "Senior Full-Stack Developer",
         "company": "Megagoods Inc",
+        "website": "https://www.megagoods.com",
         "logo": "img/logos/megagoods.png",
         "dates": "03/2023 – 09/2026",
         "skills": ["Python", "JavaScript", "SQL", "REST APIs", "MySQL", "Git", "GitHub", "Claude Code"],
@@ -87,6 +89,7 @@ EXPERIENCE = [
     {
         "role": "Web Application Developer",
         "company": "Speech Improvement Center",
+        "website": "https://speechimprovementcenter.com",
         "logo": "img/logos/speech-improvement-center.png",
         "dates": "02/2018 – 02/2023",
         "skills": ["PHP", "MySQL", "React", "Angular", "GraphQL", "JavaScript", "HTML5", "CSS3", "Git"],

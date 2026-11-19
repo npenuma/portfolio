@@ -128,6 +128,12 @@ def index():
     )
 
 
+@app.route("/healthz")
+def healthz():
+    # Lightweight endpoint for uptime monitors (keeps the free Render instance awake).
+    return "ok", 200, {"Content-Type": "text/plain", "Cache-Control": "no-store"}
+
+
 @app.route("/favicon.ico")
 def favicon():
     # Some browsers and crawlers ask for /favicon.ico directly.

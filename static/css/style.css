@@ -206,6 +206,8 @@ html.intro .intro-loader {
 .job-body { margin-left: 36px; padding: .2rem 1.2rem 1rem; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); }
 .job-body ul { padding-left: 1.1rem; }
 .job-body li { margin: .35rem 0; }
+.job-site { display: inline-block; margin-top: .8rem; font-weight: 600; text-decoration: none; }
+.job-site:hover { text-decoration: underline; }
 @media (max-width: 600px) {
   .job-head { grid-template-columns: 20px 1fr 20px; }
   .job-logo { width: 64px; height: 32px; }
